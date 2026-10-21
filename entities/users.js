@@ -1,0 +1,38 @@
+const {EntitySchema}=require('typeorm')
+const userSchema=new EntitySchema({
+    name:'user',
+    tableName:'users',
+    columns:{
+        id:{
+            type:Number,
+            generated:true,
+            primary:true
+        },
+        username:{
+            type:String,
+            nullable:false
+        },
+        email:{
+            type:String,
+            nullable:false,
+            unique:true
+        },
+        password:{
+           type:String,
+           nullable:false
+        },
+        role:{
+            type:String,
+            default:'user',
+            nullable:false
+        }
+    },
+    relations:{
+        links:{
+            type:'one-to-many',
+            target:'link',
+            inverseSide:'user'
+        }
+    }
+})
+module.exports=userSchema
